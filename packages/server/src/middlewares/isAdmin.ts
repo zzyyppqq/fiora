@@ -1,5 +1,7 @@
 import config from '@fiora/config/server';
 import { Socket } from 'socket.io';
+import frequency from './frequency';
+import logger from '@fiora/utils/logger';
 
 export const YOU_ARE_NOT_ADMINISTRATOR = '你不是管理员';
 
@@ -20,6 +22,7 @@ export default function isAdmin(socket: Socket) {
         'getSystemConfig',
     ]);
     return async ([event, , cb]: MiddlewareArgs, next: MiddlewareNext) => {
+        logger.trace(`isAdmin event: ${event}`)
         socket.data.isAdmin =
             !!socket.data.user &&
             config.administrator.includes(socket.data.user);

@@ -4,6 +4,7 @@ import {
     getSealUserKey,
     Redis,
 } from '@fiora/database/redis/initRedis';
+import logger from '@fiora/utils/logger';
 
 export const CALL_SERVICE_FREQUENTLY = '发消息过于频繁, 请冷静一会再试';
 export const NEW_USER_CALL_SERVICE_FREQUENTLY =
@@ -41,6 +42,7 @@ export default function frequency(
     }, clearDataInterval);
 
     return async ([event, , cb]: MiddlewareArgs, next: MiddlewareNext) => {
+        logger.trace(`frequency event: ${event}`)
         if (event !== 'sendMessage') {
             next();
         } else {

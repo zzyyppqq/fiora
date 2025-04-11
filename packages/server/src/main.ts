@@ -8,6 +8,7 @@ import Group, { GroupDocument } from '@fiora/database/mongoose/models/group';
 import app from './app';
 
 (async () => {
+    logger.info(`process.argv: ${process.argv}`);
     if (process.argv.find((argv) => argv === '--doctor')) {
         await doctor();
     }

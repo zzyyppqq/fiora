@@ -40,10 +40,12 @@ const io = new Server(httpServer, {
 
 // serve index.html
 app.use(async (ctx, next) => {
+    logger.info(`ctx.request.url: ${ctx.request.url}`)
     if (
         /\/invite\/group\/[\w\d]+/.test(ctx.request.url) ||
         !/(\.)|(\/invite\/group\/[\w\d]+)/.test(ctx.request.url)
     ) {
+        logger.info(`koaSend index.html`)
         await koaSend(ctx, 'index.html', {
             root: path.join(__dirname, '../public'),
             maxage: 1000 * 60 * 60 * 24 * 7,

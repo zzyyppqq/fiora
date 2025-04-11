@@ -10,6 +10,7 @@ function defaultCallback() {
 export default function registerRoutes(socket: Socket, routes: Routes) {
     return async ([event, data, cb = defaultCallback]: MiddlewareArgs) => {
         const route = routes[event];
+        logger.trace(`registerRoutes event: ${event}`)
         if (route) {
             try {
                 const ctx: Context<any> = {

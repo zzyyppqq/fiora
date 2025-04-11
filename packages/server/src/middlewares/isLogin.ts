@@ -1,4 +1,5 @@
 import { Socket } from 'socket.io';
+import logger from '@fiora/utils/logger';
 
 export const PLEASE_LOGIN = '请登录后再试';
 
@@ -18,6 +19,7 @@ export default function isLogin(socket: Socket) {
         'getSTS',
     ]);
     return async ([event, , cb]: MiddlewareArgs, next: MiddlewareNext) => {
+        logger.trace(`isLogin event: ${event}`)
         if (!noRequireLoginEvent.has(event) && !socket.data.user) {
             cb(PLEASE_LOGIN);
         } else {
